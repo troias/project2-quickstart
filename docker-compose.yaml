@@ -2,24 +2,24 @@ version: "3"
 services:
   backend:
     image: troias/strapi-next-base:backend
-    container_name: backend
+    container_name: backend-project2
     volumes:
       - ./backend:/srv/app
     ports:
       - "1337:1337"
 
 
-  # frontend:
-  #   image:  frontend
-  #   container_name: frontend
-  #   volumes:
-  #     - ./frontend:/usr/src/app
-  #   environment:
-  #     - API_BASEURL=https://localhost:1337
-  #   ports:
-  #     - 3000:3000
-  #   depends_on: 
-  #     - backend
-  #   restart: on-failure
-  #   command: yarn dev
+  frontend:
+    image:  project-2 
+    container_name: frontend-project2
+    volumes:
+      - ./frontend:/usr/src/app
+    environment:
+      - API_BASEURL=https://localhost:1337
+    ports:
+      - 3000:3000
+    depends_on: 
+      - backend
+    restart: on-failure
+    command: yarn dev
 
