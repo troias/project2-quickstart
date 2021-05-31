@@ -1,41 +1,38 @@
 import styles from "../styles/Home.module.css"
-import { formatImageUrl } from '../utils/format'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
 
+import { API_URL, POSTS, FRONTEND_API_URL } from '../utils/urls'
+import mockPosts from '../posts.json'
+import Link from 'next/link'
+import Post from '../components/Post'
 
+const Posts = () => {
 
+    const router = useRouter()
+    const [posts, setPosts] = useState(mockPosts)
 
+    //setIntialPosts
+    useEffect(() => {
+        const getPosts = async () => {
+            try {
+                const req = await fetch(`${API_URL}${POSTS}`)
+                const data = await req.json()
+                setPosts(data)
+            } catch (error) {
+                console.log(error)
+            }
 
+        }
+        getPosts()
+    }, [])
 
-const Posts = (props) => {
-    const { posts } = props
-    console.log("props", props)
     return (
-        <div>
-            POSTS
-
-            <br />
-            {posts.map((post) => {
-                return (
-                    <div 
-                    className={styles.posts}
-                    key={post.id}>
-                        <div>
-                            <span>ID: {post.id}</span>
-                        </div>
-                        <h4> {post.description} </h4>
-                        <div> 
-                            
-                           <img 
-                            src={formatImageUrl(post.image.map(image => image.url))}
-                            className={styles.img_url}/> </div>
-                        <div>
-                            <span>Likes: {post.likes}</span>
-                        </div>
-                    </div>
-                );
-            })}
-            <br />
-        </div>
+        <Link href={`${FRONTEND_API_URL}/${posts}`}>
+            <a>
+                <Post posts={posts} />
+            </a>
+        </Link>
     );
 };
 

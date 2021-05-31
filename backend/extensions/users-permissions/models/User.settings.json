@@ -61,7 +61,7 @@
     },
     "posts": {
       "via": "author",
-      "collection": "post"
+      "collection": "posts"
     }
   }
 }

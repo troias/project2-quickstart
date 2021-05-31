@@ -1,5 +1,5 @@
 export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://host.docker.internal:1337'
-export const PUBLIC_API_URL =process.env.NEXT_PUBLIC_API_URL || 'http://host.docker.internal:1337'
+export const FRONTEND_API_URL =process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'
 export const MAGIC_PUBLIC_KEY = process.env.NEXT_PUBLIC_PUBLIC_KEY || 'pk_test_1BD0CF5FD1A748A8'
 export const STRIPE_PK = process.env.NEXT_PUBLIC_STRIPE_PK || 'pk_test_wsM8DdfghvqwLFFekyuYcimi'
 /**
@@ -8,6 +8,10 @@ export const STRIPE_PK = process.env.NEXT_PUBLIC_STRIPE_PK || 'pk_test_wsM8Ddfgh
  * @param {any} image 
  * @returns 
  */
+
+/***end points***/
+
+export const POSTS = `/posts`
 
 export const fromImageToUrl = (image) => {
 

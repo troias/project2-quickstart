@@ -1,22 +1,33 @@
+.mainSection {
+    display: flex;
+    justify-content:space-between
+}
+
 .title {
     text-align: center;
     line-height: 24px;
 }
 
-.nav {
-    position: relative
-}
 
 .back {
-    position: absolute;
-    top: 0;
-    left: 0;
-    line-height: 24px;
-    cursor: pointer;
+    cursor: pointer
 }
+
+.back:hover {
+    color: blueviolet;
+}
+
+.homeLink:active {
+ color: blueviolet;
+}
+.homeLink:hover {
+    color: blueviolet;
+   }
+   
 
 .auth {
     position: absolute;
     top: 0;
     right: 0;
 }
+
