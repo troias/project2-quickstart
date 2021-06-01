@@ -1,38 +1,36 @@
-import React from 'react'
+
 import styles from '../styles/Post.module.css'
 import { formatImageUrl } from '../utils/format'
 
-const Post = (props) => {
-    const {posts} = props
 
-    const showPosts = posts.map((post) => {
-        return (
-            <div
-                className={styles.posts}
-                key={post.id}>
-                <div>
-                    <span>ID: {post.id}</span>
-                </div>
-                <div>
-                    <h3>Title  {post.title}</h3>
-                </div>
-                <p> Description {post.description} </p>
-                <div>
-                    <img
-                        src={formatImageUrl(post.image.url)}
-                        className={styles.img_url} /> </div>
-                <div>
-                    <span>Likes: {post.likes}</span>
-                </div>
-            </div>
-        );
-    })
+const Post = (props) => {
+    const { posts } = props
+
+    const showPosts = <div
+        className={styles.posts}
+        key={posts.id}>
+        <div>
+            <span>ID: {posts.id}</span>
+        </div>
+        <div>
+            <h3>Title  {posts.title}</h3>
+        </div>
+        <p> Description {posts.description} </p>
+        <div>
+            <img
+                src={posts.image && formatImageUrl(posts.image.url)}
+                className={styles.img_url} /> </div>
+        <div>
+            <span>Likes: {posts.likes}</span>
+        </div>
+    </div>
 
     return (
         <div>
             POSTS
             <br />
-            { showPosts  }
+            { showPosts}
+            
             <br />
         </div>
     )

@@ -9,10 +9,7 @@ const Home = () => {
 
   return (
     <>
-
-    
       <Posts/>
-    
     </>
   )
 }

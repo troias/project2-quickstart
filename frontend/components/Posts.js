@@ -1,39 +1,42 @@
-import styles from "../styles/Home.module.css"
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
+import mockPosts from "../posts.json";
+import Link from "next/link";
+import Post from "../components/Post";
 
-import { API_URL, POSTS, FRONTEND_API_URL } from '../utils/urls'
-import mockPosts from '../posts.json'
-import Link from 'next/link'
-import Post from '../components/Post'
+import { useState, useEffect } from "react";
+import { API_URL, POSTS } from "../utils/urls";
 
 const Posts = () => {
+  const [posts, setPosts] = useState(mockPosts);
 
-    const router = useRouter()
-    const [posts, setPosts] = useState(mockPosts)
+  //setIntialPosts
 
-    //setIntialPosts
-    useEffect(() => {
-        const getPosts = async () => {
-            try {
-                const req = await fetch(`${API_URL}${POSTS}`)
-                const data = await req.json()
-                setPosts(data)
-            } catch (error) {
-                console.log(error)
-            }
+  useEffect(() => {
+    const getPosts = async () => {
+      try {
+        const req = await fetch(`${API_URL}${POSTS}`);
+        const data = await req.json();
+        setPosts(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getPosts();
+  }, []);
 
-        }
-        getPosts()
-    }, [])
-
-    return (
-        <Link href={`${FRONTEND_API_URL}/${posts}`}>
+  return (
+    <div>
+      {posts.map((post) => {
+        return (
+          <div key={post.id}>
+          <Link href={`posts/${post.id}`}>
             <a>
-                <Post posts={posts} />
+              <Post  posts={post} />
             </a>
-        </Link>
-    );
+          </Link>
+          </div>
+        );
+      })}
+    </div>
+  );
 };
-
 export default Posts;
