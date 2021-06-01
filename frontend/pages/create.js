@@ -7,24 +7,30 @@ const create = () => {
 
     const [description, setDescription] = useState('')
     const [title, setTitle] = useState('')
-    const [likes, setLikes] = useState('')
     const [file, setFile] = useState(null)
-    const [author, setAuthor] = useState(null)
+    // const [author, setAuthor] = useState(null)
 
     const handleSubmit = async (event) => {
         event.preventDefault()
 
+        if (!description ) {
+            //Add error message
+            return
+        }
+
+        if (!file) {
+            return
+        }
         const formData = new FormData()
         formData.append("data", JSON.stringify({
             description, 
             title, 
-            likes
+        
         }))
         formData.append("files.image", file)
 
         const res = await fetch(`${API_URL}/posts`, {
             method: 'POST',
-
             body: formData
 
         })
@@ -53,11 +59,11 @@ const create = () => {
                     onChange={(event) => setDescription(event.target.value)}
                 />
                 <br />
-                <input
+                {/* <input
                     className={styles.input}
                     placeholder="Likes"
                     onChange={(event) => setLikes(event.target.value)}
-                />
+                /> */}
                 <br />
                 <input
                     type="file"
