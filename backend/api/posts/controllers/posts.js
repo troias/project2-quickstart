@@ -15,6 +15,7 @@ module.exports = {
    */
 
   async create(ctx) {
+      throw "err"
     let entity;
     if (ctx.is('multipart')) {
       const { data, files } = parseMultipartData(ctx);
