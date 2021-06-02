@@ -1,17 +1,25 @@
 .mainSection {
     display: flex;
-    justify-content:space-between
+    justify-content: space-between;
+    align-items: center
 }
 
 .title {
     text-align: center;
     line-height: 24px;
+    margin-right: 1em;
 }
 
 
 .back {
-    cursor: pointer
+    cursor: pointer;
+    margin-right: 1em;
 }
+
+.homeLink {
+    margin-right: 1em;
+}
+
 
 .back:hover {
     color: blueviolet;
@@ -26,8 +34,9 @@
    
 
 .auth {
-    position: absolute;
-    top: 0;
-    right: 0;
+    display: inline-block;
+    padding: 1em;
+    text-align: center;
+    margin: auto;
 }
 

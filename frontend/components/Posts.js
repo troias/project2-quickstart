@@ -30,7 +30,7 @@ const Posts = () => {
           <div key={post.id}>
           <Link href={`posts/${post.id}`}>
             <a>
-              <Post  posts={post} />
+              <Post posts={post} />
             </a>
           </Link>
           </div>

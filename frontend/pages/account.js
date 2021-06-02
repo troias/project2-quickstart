@@ -5,51 +5,18 @@ import Link from 'next/link';
 import AuthContext from '../context/AuthContext'
 import ClipLoader from "react-spinners/ClipLoader";
 
-export const useOrders = (user, getToken) => {
+const logoutUser = () => {
 
-    const [orders, setOrders] = useState([])
-    const [loading, setLoading] = useState(false)
-    let [color, setColor] = useState("#000000");
-
-    useEffect(() => {
-
-        const fetchOrders = async () => {
-
-            if (user) {
-                try {
-                    setLoading(true)
-                    const token = await getToken()
-                    const order_res = await fetch(`${API_URL}/orders`, {
-                        headers: {
-                            'Authorization': `Bearer ${token}`
-                        }
-                    })
-                    const data = await order_res.json()
-                    setOrders(data)
-                } catch (error) {
-                    setOrders([])
-                    setLoading(false)
-                }
-            }
-            setLoading(false)
-        }
-
-        fetchOrders()
-    }, [user])
-
-    return { orders, loading, color }
 }
-
 const Account = () => {
 
-    const { user, logoutUser, getToken } = useContext(AuthContext)
-
-    const { orders, loading, color } = useOrders(user, getToken)
-
-
+    const { user } = useContext(AuthContext)
+    const [loading, setLoading] = useState(false)
+    const [color, setColor] = useState('#000000')
     if (!user) {
         return (<div> Please login or register <Link href="/"><a>Go back</a></Link> </div>)
     }
+
     return (
         <div>
             <Head>
@@ -59,21 +26,10 @@ const Account = () => {
             </Head>
             <h2> Account Page </h2>
             <hr />
-            <h3> Your Orders </h3>
+            <h3> Your Posts </h3>
             <div>
                  <ClipLoader loading={loading} color={color} />
-                {orders.map(order => (
-                    <div key={order.id}>
-                        <hr />
-                        Date Ordered: {new Date(order.created_at).toLocaleDateString('en-En')}
-                        <hr />
-                        <h4>{ order.product.name}</h4>
-                        
-                        Order status: {order.status}
-                        <hr/>
-                        <strong> Total Price: ${ order.total}</strong>
-                    </div>
-                ))}
+               
             </div>
 
             <p> Logged in as {user.email}</p>

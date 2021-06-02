@@ -1,11 +1,16 @@
 import Post from "../../components/Post";
 import ClipLoader from "react-spinners/ClipLoader";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 import { API_URL } from "../../utils/urls";
+import { AuthContext} from '../../context/AuthContext'
 
 const SinglePost = () => {
+
+    const { user, setUser } = useContext(AuthContext)
+    console.log("User", user)
+    console.log("setUser", setUser)
 
     const [post, setPost] = useState({});
     const [loading, setLoading] = useState(false);
@@ -17,12 +22,13 @@ const SinglePost = () => {
     //router related properties
 
     const router = useRouter();
-    const { id } = router.query;
+    
 
 
     //handlers
 
     const fetchPost = async () => {
+        const { id } = router.query;
         try {
             setLoading(true);
             const response = await fetch(`${API_URL}/posts/${id}`);
@@ -51,7 +57,6 @@ const SinglePost = () => {
                 })
             })
             const data = await response.json()
-            console.log("data", data)
             setDescription(data)
             setLoading(false)
         } catch (error) {

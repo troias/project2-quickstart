@@ -4,6 +4,9 @@ import { useRouter } from "next/router";
 import { API_URL } from "../utils/urls";
 
 const create = () => {
+
+    const router = useRouter()
+
     const [description, setDescription] = useState("");
     const [title, setTitle] = useState("");
     const [file, setFile] = useState(null);
@@ -13,17 +16,17 @@ const create = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        if(!description) {
+        if (!description) {
             setError("Add description you fuck head");
             return;
         }
 
-        if(!title) {
+        if (!title) {
             setError("Add title you imbecile ")
             return;
         }
 
-        if(!file) {
+        if (!file) {
             setError("Bro add a image cunt")
             return;
         }
@@ -40,12 +43,14 @@ const create = () => {
         try {
             const res = await fetch(`${API_URL}/posts`, {
                 method: "POST",
-                body: formData,
+                body: formData
             });
             const data = await res.json();
-            console.log("data", data);
+            setFile(data)
+
         } catch (error) {
-           setError(error);
+            setError(error);
+            console.log("data", error);
         }
     };
 
@@ -54,7 +59,7 @@ const create = () => {
             <div>
                 <h2 className={styles.title}>Create</h2>
             </div>
-            {error && <p> {error.message || error } </p>}
+            {error && <p> {error.message || error} </p>}
             <form onSubmit={handleSubmit} className={styles.form}>
                 <input
                     className={styles.input}
@@ -73,12 +78,6 @@ const create = () => {
                         setDescription(event.target.value)
                     }}
                 />
-                <br />
-                {/* <input
-                    className={styles.input}
-                    placeholder="Likes"
-                    onChange={(event) => setLikes(event.target.value)}
-                /> */}
                 <br />
                 <input
                     type="file"
