@@ -1,45 +1,52 @@
+import Post from "../../components/Post";
+import ClipLoader from "react-spinners/ClipLoader";
 
-import Post from '../../components/Post'
-import Link from 'next/link'
-
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
-import { API_URL } from '../../utils/urls'
-
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import { API_URL } from "../../utils/urls";
 
 const SinglePost = () => {
+  const [post, setPost] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState({});
+  let color = useState("#000000");
 
-    const [post, setPost] = useState({})
-  
-    //router related properties
+  //router related properties
 
-    
-    const router = useRouter()
-    const { id } = router.query
-    console.log("router", router)
-    console.log("id", id)
+  const router = useRouter();
+  const { id } = router.query;
 
-    useEffect(() => {
+  useEffect(() => {
+    const fetchPost = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(`${API_URL}/posts/${id}`);
+        const data = await response.json();
 
-        const fetchPost = async () => {
-            try {
-                const response = await fetch(`${API_URL}/posts/${id}`)
-                const data = await response.json(); 
-                console.log("data", data)
-                setPost(data)
-            } catch (error) {
-                console.log("error", error)
-            }
-        }
-        fetchPost()
-    }, [])
+        setPost(data);
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+        setError(error);
+      }
+    };
+    fetchPost();
+  }, []);
 
-    
-    return (
-        <>
-            <Post posts={post}/>
-        </>
-    )
-}
+  return (
+    <>
+      <ClipLoader loading={loading} />
 
-export default SinglePost
+      {!loading && <>{post.id && <Post posts={post} />}</>}
+      {!post.id && (
+        <h2>
+          Get the fuck out of here boi
+          <br />
+            {error && <p>404 post not found</p>}
+        </h2>
+      )}
+    </>
+  );
+};
+
+export default SinglePost;

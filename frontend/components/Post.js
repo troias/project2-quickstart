@@ -29,8 +29,7 @@ const Post = (props) => {
         <div>
             POSTS
             <br />
-            { showPosts}
-            
+            {showPosts}
             <br />
         </div>
     )
