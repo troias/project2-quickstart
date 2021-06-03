@@ -8,6 +8,8 @@ export const AuthContext = createContext(null)
 
 export const AuthProvider = (props) => {
 
+    
+
     const [user, setUser] = useState({jwt: 'asad'})
     const router = useRouter()
 
