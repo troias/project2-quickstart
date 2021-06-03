@@ -27,7 +27,7 @@ const SinglePost = () => {
 
     //handlers
 
-    const fetchPost = async () => {
+    const fetchSinglePost = async () => {
         const { id } = router.query;
         try {
             setLoading(true);
@@ -63,7 +63,7 @@ const SinglePost = () => {
             setLoading(false)
             setError(error)
         }
-        fetchPost();
+        fetchSinglePost();
         setEdit(false)
     }
 
@@ -84,7 +84,7 @@ const SinglePost = () => {
     // intial side effect
 
     useEffect(() => {
-        fetchPost();
+        fetchSinglePost();
     }, []);
 
     return (

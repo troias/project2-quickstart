@@ -1,42 +1,68 @@
-import Head from 'next/head';
-import { useContext, useState, useEffect } from 'react';
-import { API_URL } from '../utils/urls'
-import Link from 'next/link';
-import AuthContext from '../context/AuthContext'
-import ClipLoader from "react-spinners/ClipLoader";
+import Head from "next/head";
+import { useContext, useEffect } from "react";
+import Link from "next/link";
+import { useState } from "react";
+import PostContext from "../context/PostsContext";
+import AuthContext from "../context/AuthContext";
 
-const logoutUser = () => {
-
-}
 const Account = () => {
+  const { user, logOutUser, getAuthUserName, checkIsLoggedIn } =
+    useContext(AuthContext);
+  const [loggedIn] = useState(checkIsLoggedIn());
 
-    const { user } = useContext(AuthContext)
-    const [loading, setLoading] = useState(false)
-    const [color, setColor] = useState('#000000')
-    if (!user) {
-        return (<div> Please login or register <Link href="/"><a>Go back</a></Link> </div>)
-    }
+  console.log("loggedIn", "loggedIn");
+  console.log(loggedIn && user.user.username);
+  return (
+    <div>
+      <Head>
+        <title>Acount Page</title>
+        <meta
+          name="description"
+          content="The Account Page view your orders and logout"
+        />
+      </Head>
 
-    return (
-        <div>
-            <Head>
-                <title>Acount Page</title>
-
-                <meta name="description" content="The Account Page view your orders and logout" />
-            </Head>
-            <h2> Account Page </h2>
-            <hr />
-            <h3> Your Posts </h3>
-            <div>
-                 <ClipLoader loading={loading} color={color} />
-               
-            </div>
-
-            <p> Logged in as {user.email}</p>
-            <a href="#" onClick={logoutUser}>LogOut</a>
-
+      <div>
+        <h2> Account Page </h2>
+        {loggedIn && <div>
+          {user.user.username}
+          Posts: {
+            user.user.posts.map(post =>
+              <div key={post.id}>
+              {post.id},
+              {post.title},
+              {post.likes},
+              {post.author}
+              </div>
+            )}
         </div>
-    )
-}
+        }
 
-export default Account
+        {/* {loggedIn && (
+          <div>
+            
+            
+          </div>
+        )} */}
+
+        {/* {!loggedIn && (
+          <div>
+            <Link href="/login">
+              Please <button> login </button> or register{" "}
+            </Link>
+            <Link href="/">
+              <a>Go back</a>
+            </Link>{" "}
+          </div>
+        )
+        } */}
+
+        <a href="#">
+          <button onClick={logOutUser}>Log out</button>
+        </a>
+      </div>
+    </div>
+  );
+};
+
+export default Account;

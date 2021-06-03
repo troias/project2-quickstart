@@ -1,42 +1,43 @@
-import mockPosts from "../posts.json";
 import Link from "next/link";
 import Post from "../components/Post";
 
-import { useState, useEffect } from "react";
-import { API_URL, POSTS } from "../utils/urls";
+import { useContext } from "react";
+import PostContext from "../context/PostsContext";
+import { useEffect, useState } from "react";
+import { usePost } from "../hooks/usePost"
+import mockPosts from "../posts.json"
 
 const Posts = () => {
-  const [posts, setPosts] = useState(mockPosts);
+  const [posts, error] = usePost({})
+  // const [posts, setPosts] = usePost(mockPosts)
+  console.log(posts)
+  // const obj = posts.map(post => post.id)
+  // console.log(obj)
+  // // setIntialPosts
 
-  //setIntialPosts
 
-  useEffect(() => {
-    const getPosts = async () => {
-      try {
-        const req = await fetch(`${API_URL}${POSTS}`);
-        const data = await req.json();
-        setPosts(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getPosts();
-  }, []);
+
+
 
   return (
-    <div>
-      {posts.map((post) => {
-        return (
-          <div key={post.id}>
+    <>
+    {console.log(posts)}
+   {posts.map(post => {
+      return (
+        <div key={post.id}>
           <Link href={`posts/${post.id}`}>
             <a>
               <Post posts={post} />
             </a>
           </Link>
-          </div>
-        );
-      })}
-    </div>
-  );
-};
+        </div>
+      )
+    })} 
+ </>
+  )
+
+
+
+
+}
 export default Posts;
