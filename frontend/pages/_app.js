@@ -5,12 +5,14 @@ import { AuthProvider } from '../context/AuthContext'
 
 function MyApp({ Component, pageProps }) {
   return (
-    <AuthProvider>
+    <>
+     <AuthProvider>
       <HeadSection />
       <Component {...pageProps} />
       <Footer />
+ 
     </AuthProvider>
-
+    </>
   )
 }
 

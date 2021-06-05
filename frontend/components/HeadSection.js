@@ -57,12 +57,20 @@ const HeadSection = () => {
           </Link>
         </>
       ) : (
+        <>
         <Link href="/login">
           <a>
             {" "}
             <FaUserTie /> Log in
           </a>
         </Link>
+        <Link href="/signup">
+          <a>
+            {" "}
+            <FaUserTie /> Sign up
+            </a>
+        </Link>
+        </>
       )}
     </div>
   );

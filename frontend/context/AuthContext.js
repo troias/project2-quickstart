@@ -8,9 +8,8 @@ export const AuthProvider = (props) => {
 
   const router = useRouter();
   const [user, setUser] = useState();
-  const [success, setSuccess] = useState("");
+  const [success] = useState("");
   const [error, setError] = useState("");
-
   const [isLoggedIn, setLoggedIn] = useState(false);
 
 
@@ -23,7 +22,9 @@ export const AuthProvider = (props) => {
 
   const logOutUser = () => {
     setUser(null);
-    router.back("/");
+    setLoggedIn(false)
+    router.push("/");
+    
   };
 
   const loginUser = async (email, password) => {
@@ -39,16 +40,18 @@ export const AuthProvider = (props) => {
         }),
       });
       const data = await response.json();
+
       if (data.message) {
         setError(data.message[0].messages[0].message);
         alert(error);
         return;
       }
+
       setUser(data);
-      setSuccess("grats ya logged in ya dog");
       setLoggedIn(true);
-      router.push("/account");
-      //  loginUser(data)
+      console.log(data)
+      router.push("/");
+  
     } catch (error) {
       setError("something went wrong" + error);
     }
@@ -58,7 +61,7 @@ export const AuthProvider = (props) => {
   const checkIsLoggedIn = () => {
      const loggedIn = isLoggedIn
      return loggedIn
-    // dumb cause no conditional
+
   };
 
   useEffect(() => {

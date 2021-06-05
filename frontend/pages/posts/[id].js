@@ -9,9 +9,6 @@ import { AuthContext} from '../../context/AuthContext'
 const SinglePost = () => {
 
     const { user, setUser } = useContext(AuthContext)
-    console.log("User", user)
-    console.log("setUser", setUser)
-
     const [post, setPost] = useState({});
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState({});

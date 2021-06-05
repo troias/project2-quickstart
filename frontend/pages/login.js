@@ -1,66 +1,29 @@
 import Head from "next/head";
 import AuthContext from "../context/AuthContext";
 import styles from "../styles/login.module.css";
-
-import {useRouter} from "next/router"
-import { useState, useContext } from "react";
+import { useRouter } from "next/router";
+import { useContext, useEffect } from "react";
+import AuthForm from '../components/Forms/AuthForm'
 
 const Login = () => {
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const router = useRouter()
+  const { user } = useContext(AuthContext);
 
-
-
-const { loginUser, setError, success, error } = useContext(AuthContext);
-
-
-  const handleSubmit = async (event) => {
-    event.preventDefault(); //avoids refresh
-    // loginUser(email, password);
-    loginUser(email, password)
-
-  };
-
+  useEffect(() => {
+    if(user) {
+      router.push("/")
+    }
+  }, [user])
+  
   return (
     <div>
       <Head>
         <title>Login</title>
-        <meta name="description" content="Login here to make your purchase" />
+        <meta name="description" content="Login page" />
       </Head>
-
       <h2 className={styles.loginTitle}>Login</h2>
-
-      {error && <p>{error}</p>}
-      {success && alert(success) } 
-
-      <form onSubmit={handleSubmit}>
-        <input
-          className={styles.input}
-          type="email"
-          value={email}
-          onChange={(event) => {
-            setEmail(event.target.value);
-            setError("");
-          }}
-          placeholder="Email Address"
-        />
-        <input
-          className={styles.input}
-          type="password"
-          value={password}
-          onChange={(event) => {
-            setPassword(event.target.value);
-            setError("");
-          }}
-          placeholder="Password"
-        />
-        <button type="submit" className={styles.button}>
-          LogIn
-        </button>
-      </form>
-
+      <AuthForm formType="Log In"/>
     </div>
   );
 };
