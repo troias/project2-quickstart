@@ -11,8 +11,7 @@ export const AuthProvider = (props) => {
   const [success] = useState("");
   const [error, setError] = useState("");
   const [isLoggedIn, setLoggedIn] = useState(false);
-
-
+ 
   const getAuthUserName = (user) => {
     if (isLoggedIn) {
       return user.user.username;
@@ -24,6 +23,27 @@ export const AuthProvider = (props) => {
     setUser(null);
     setLoggedIn(false)
     router.push("/");
+    
+  };
+
+  const registerUser = async (email, password) => {
+    try {
+      const response = await fetch(`${API_URL}/auth/local/register`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          username: email,
+          email,
+          password,
+        }),
+      });
+      const data = await response.json();
+      console.log("registerUser", data)
+    } catch (error) {
+      
+    }
     
   };
 
@@ -46,10 +66,9 @@ export const AuthProvider = (props) => {
         alert(error);
         return;
       }
-
       setUser(data);
       setLoggedIn(true);
-      console.log(data)
+      console.log("loginUser", data)
       router.push("/");
   
     } catch (error) {
@@ -79,6 +98,7 @@ export const AuthProvider = (props) => {
         logOutUser,
         getAuthUserName,
         checkIsLoggedIn,
+        registerUser,
       }}
     >
       {props.children}

@@ -1,19 +1,10 @@
 import Link from "next/link";
 import Post from "../components/Post";
-
-import { useContext } from "react";
-import PostContext from "../context/PostsContext";
-import { useEffect, useState, useMemo } from "react";
 import { usePost } from "../hooks/usePost"
-import mockPosts from "../posts.json"
+
 
 const Posts = () => {
-  const [posts, error, fetchPost, setPosts] = usePost()
-
-  
-  console.log(posts)
-
-
+  const [posts, error] = usePost()
   return (
     <>
     {posts && posts.map(post => {

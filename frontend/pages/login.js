@@ -3,19 +3,22 @@ import AuthContext from "../context/AuthContext";
 import styles from "../styles/login.module.css";
 import { useRouter } from "next/router";
 import { useContext, useEffect } from "react";
-import AuthForm from '../components/Forms/AuthForm'
+import { FormProvider } from "../context/AuthForm";
+import FormContext from "../context/AuthForm";
+import AuthForm from "../components/Forms/AuthForm";
 
 const Login = () => {
+  const { ...methods } = useContext(FormContext);
 
-  const router = useRouter()
+  const router = useRouter();
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    if(user) {
-      router.push("/")
+    if (user) {
+      router.push("/");
     }
-  }, [user])
-  
+  }, [user]);
+
   return (
     <div>
       <Head>
@@ -23,7 +26,8 @@ const Login = () => {
         <meta name="description" content="Login page" />
       </Head>
       <h2 className={styles.loginTitle}>Login</h2>
-      <AuthForm formType="Log In"/>
+
+      <AuthForm methods={methods} formType="Login" />
     </div>
   );
 };

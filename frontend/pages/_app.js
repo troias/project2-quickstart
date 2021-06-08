@@ -2,16 +2,19 @@ import '../styles/globals.css'
 import HeadSection from '../components/HeadSection'
 import Footer from '../components/Footer.js'
 import { AuthProvider } from '../context/AuthContext'
+import {FormProvider } from '../context/AuthForm'
 
 function MyApp({ Component, pageProps }) {
   return (
     <>
-     <AuthProvider>
-      <HeadSection />
-      <Component {...pageProps} />
-      <Footer />
- 
-    </AuthProvider>
+      <AuthProvider>
+        <FormProvider>
+          <HeadSection />
+          <Component {...pageProps} />
+        </FormProvider>
+        <Footer />
+
+      </AuthProvider>
     </>
   )
 }
