@@ -1,20 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styles from "../styles/Create.module.scss";
 import { useRouter } from "next/router";
 import { API_URL } from "../utils/urls";
-
+import {AuthContext} from "../context/AuthContext"
 const create = () => {
 
     const router = useRouter()
-
+    const { user } = useContext(AuthContext);
     const [description, setDescription] = useState("");
     const [title, setTitle] = useState("");
     const [file, setFile] = useState(null);
     const [error, setError] = useState("")
     // const [author, setAuthor] = useState(null)
 
+
+
     const handleSubmit = async (event) => {
         event.preventDefault();
+
+        if(!user){
+            setError("please log in first")
+            router.push("/login")
+            return
+        }
 
         if (!description) {
             setError("Add description you fuck head");
@@ -43,10 +51,15 @@ const create = () => {
         try {
             const res = await fetch(`${API_URL}/posts`, {
                 method: "POST",
+                headers: {
+                    'Authorization': `Bearer ${user.jwt}`
+                },
                 body: formData
             });
             const data = await res.json();
             setFile(data)
+            console.log("submit", data)
+            router.push("/")
 
         } catch (error) {
             setError(error);

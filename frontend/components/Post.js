@@ -3,12 +3,14 @@ import { formatImageUrl } from "../utils/format";
 
 const Post = (props) => {
   const { posts } = props;
-
   const showPosts = (
     <div className={styles.posts} key={posts.id}>
       <h3>Posts:</h3>
       <div>
         <span>Post ID: {posts.id}</span>
+      </div>
+      <div>
+        <span>Author: {posts.author && posts.author.username}</span>
       </div>
       <div>
         <h3>Post title </h3>

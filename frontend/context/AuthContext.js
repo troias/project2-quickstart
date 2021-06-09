@@ -71,6 +71,7 @@ export const AuthProvider = (props) => {
         setError(data.message[0].messages[0].message);
         return;
       }
+      console.log("login", data)
       setUser(data);
       setLoggedIn(true);
       router.push("/");
