@@ -1,21 +1,14 @@
-
 const AuthForm = (props) => {
-
-  const { methods, formType } = props
-
-
-
+  const { methods, formType } = props;
 
   const handleSubmit = (event) => {
-    event.preventDefault()
+    event.preventDefault();
     if (formType === "Register") {
-      methods.registerUser(methods.email, methods.password)
-      {methods.error && <span> {alert(methods.error)}</span>}
+      methods.registerUser(methods.email, methods.password);
     } else if (formType === "Login") {
-    
-      methods.loginUser(methods.email, methods.password)
+      methods.loginUser(methods.email, methods.password);
     }
-  }
+  };
 
   return (
     <>
@@ -46,8 +39,7 @@ const AuthForm = (props) => {
         </button>
       </form>
     </>
-  )
+  );
+};
 
-}
-
-export default AuthForm
+export default AuthForm;
