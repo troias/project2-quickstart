@@ -1,18 +1,16 @@
 
 const AuthForm = (props) => {
 
-  const {
-    methods, formType } = props
+  const { methods, formType } = props
 
 
 
 
   const handleSubmit = (event) => {
     event.preventDefault()
-
     if (formType === "Register") {
-      console.log("register")
       methods.registerUser(methods.email, methods.password)
+      {methods.error && <span> {alert(methods.error)}</span>}
     } else if (formType === "Login") {
     
       methods.loginUser(methods.email, methods.password)

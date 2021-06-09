@@ -11,6 +11,7 @@ export const AuthProvider = (props) => {
   const [success] = useState("");
   const [error, setError] = useState("");
   const [isLoggedIn, setLoggedIn] = useState(false);
+
  
   const getAuthUserName = (user) => {
     if (isLoggedIn) {
@@ -40,9 +41,15 @@ export const AuthProvider = (props) => {
         }),
       });
       const data = await response.json();
-      console.log("registerUser", data)
+      if (data.message) {
+        setError(data.message[0].messages[0].message);
+        return;
+      }
+      setUser(user)
+      console.log("error"+ error)
+   
     } catch (error) {
-      
+      setError("error"+ error)
     }
     
   };
@@ -60,15 +67,12 @@ export const AuthProvider = (props) => {
         }),
       });
       const data = await response.json();
-
       if (data.message) {
         setError(data.message[0].messages[0].message);
-        alert(error);
         return;
       }
       setUser(data);
       setLoggedIn(true);
-      console.log("loginUser", data)
       router.push("/");
   
     } catch (error) {

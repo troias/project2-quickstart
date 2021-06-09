@@ -6,9 +6,8 @@ export const FormProvider = (props) => {
     //States
 
     const [email, setEmail] = useState("");
-    const [error, setError] = useState("")
     const [password, setPassword] = useState("");
-    const { loginUser, registerUser } = useContext(AuthContext)
+    const { loginUser, registerUser, error, setError } = useContext(AuthContext)
 
     //Functions
     return (
